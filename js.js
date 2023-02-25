@@ -38,3 +38,30 @@ $(document).ready(function() {
     table.column(0).search($(this).val()).draw();
   });
 });
+
+
+// $('.clickable-tr').click(function() {
+//   swal("Testing");
+// });
+
+// Add click event listener to table rows
+$('.clickable-tr').on('click', 'tr', function () {
+    // Get the DataTable instance
+    var table = $('#myTable').DataTable();
+    // Get the data for the clicked row
+    var data = table.row($(this)).data();
+    // Get the value of the clicked cell
+    var value = data[0]; // Change this to the index of the desired column
+    
+    var timeIn = data[2];
+
+    var timeInData = "Time: ".concat(timeIn)
+    // Display the value in a Sweetalert dialog box
+Swal.fire(
+  "Employee: ".concat(value),
+  "Time: ".concat(timeIn),
+  'info'
+);
+});
+
+
