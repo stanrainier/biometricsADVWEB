@@ -1,3 +1,4 @@
+//import of txt to datatable
 $(document).ready(function() {
   const fileInput = document.getElementById('fileInput');
   const maxEntriesPerID = 4;
@@ -59,31 +60,72 @@ $(document).ready(function() {
   });
 });
 
-
-
+//ID search
 $(document).ready(function() {
   var table = $('#myTable').DataTable();
 
   $('input[type="search"]').keyup(function() {
     table.column(0).search($(this).val()).draw();
   });
-});
 
 
-// $('.clickable-tr').click(function() {
-//   swal("Testing");
-// });
-
+//Modal
 $('.clickable-tr').on('click', 'tr', function () {
-    var table = $('#myTable').DataTable();
-    var data = table.row($(this)).data();
-    var value = data[0]; 
-    var timeIn = data[2];
-Swal.fire(
-  "Employee: ".concat(value),
-  "Time: ".concat(timeIn),
-  'info'
-);
+  var data = table.row($(this)).data();
+  var value = data[0]; 
+  var timeIn = data[2];
+
+  // Count instances of value in column 0
+  var instance = table.column(0).data().filter(function(id) {
+    return id === value;
+  }).length;
+  console.log("instance "+ instance)
+  var hasClassLate = ($('tr').hasClass('late'));
+  var hasClassAbsent = ($('tr').hasClass('absent'));
+  var absences = 4 - instance;
+  console.log(hasClassLate);
+  console.log(hasClassAbsent);
+
+  if(instance === 4){
+      Swal.fire({
+      title: "Employee: " + value,
+      html: "No Late or absences",
+      icon: 'info'
+      });
+  }
+  if(hasClassLate){
+  Swal.fire({
+      title: "Employee: " + value,
+      html: "Employee has 1 late today",
+      icon: 'info'
+      });;
+  console.log('The table contains rows with the "late" class.');
+  }
+
+  if(hasClassAbsent === true){
+  Swal.fire({
+      title: "Employee: " + value,
+      html: "Employee has 1 absent today",
+      icon: 'info'
+      });;
+  }
+
+  if(hasClassLate === true && instance < 4 ){
+    Swal.fire({
+        title: "Employee: " + value,
+        html: "Employee has "+ absences + " missed attendance and 1 late today",
+        icon: 'info'
+        });;
+  }
+  else{
+    Swal.fire({
+      title: "Employee: " + value,
+      html: "Employee has "+ absences + " missed attendance today",
+      icon: 'info'
+      });
+  }
+
+
+
+  });
 });
-
-
