@@ -6,3 +6,33 @@
 	background-color: red !important;
 	color: white !important;
 }
+.clickable-tr{
+	cursor: pointer;
+  }
+
+input #file-input-button {
+  transition-duration: 0.4s;
+}
+
+input #file-input-button:hover {
+  background-color: #00c8ff !important;
+  color: white !important;
+}
+.red-box {
+  width: 12px;
+  height: 12px;
+  border: solid 1px !important;
+  background-color: red;
+  display: flex;
+  align-self: center;
+  padding: 5px;
+}
+.orange-box {
+  width: 12px;
+  height: 12px;
+  border: solid 1px !important;
+  background-color: orange;
+  display: flex;
+  align-self: center;
+  padding: 5px;
+}
